@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ title }}</title>
+</head>
+
+<body>
+    <h2>{{ title }}</h2>
+    <p>There were {{ num_quakes }} earthquakes in the last 24 hours, including {{ large_quakes_count }} of magnitude 5.0 or greater.
+        <br>
+        <br>
+        The previous 24-hour period had {{ num_large_quakes_yesterday }} large earthquakes, {% if large_quakes_count < num_large_quakes_yesterday %} {{ num_large_quakes_yesterday - large_quakes_count }} more than {% elif large_quakes_count > num_large_quakes_yesterday %} {{ large_quakes_count - num_large_quakes_yesterday }} fewer than {% else %} the same as {% endif %} the current 24-hour period.
+        <br>
+    </p>
+    <p>
+        The five largest quakes were:
+    </p>
+    <ul>
+        {% for quake in large_quakes %}
+          <li>{{ quake.properties.place|e }} ({{ quake.properties.mag|e }})</li>
+        {% endfor %}
+        </ul>
+
+</body>
